@@ -25,6 +25,7 @@ A key feature of the proposed system is its commitment to continuous improvement
 
 MODULES
 Admin
+
 ●Login
 ●Change password
 ●Verify worker
@@ -32,6 +33,7 @@ Admin
 ●View feedback and rating
 
 Worker
+
 ●Login
 ●Registration
 ●Forget password
@@ -44,6 +46,7 @@ Worker
 ●Send complaint and view reply
 
 User
+
 ●Registration
 ●Login
 ●Forget password
