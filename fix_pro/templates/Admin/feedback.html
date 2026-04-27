@@ -1,0 +1,116 @@
+{% extends 'Admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Feedback List</title>
+    </head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h2 class="display-5 fw-bold text-primary">
+                <i class="bi bi-chat-dots-fill"></i> Customer Feedback
+            </h2>
+            <p class="lead text-muted">A summary of valuable user opinions and suggestions.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        {% for fb in data %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-lg border-0 rounded-3 feedback-card">
+                <div class="card-body d-flex flex-column align-items-center p-4">
+
+                    <div class="avatar-container mb-3">
+                        <img src="{{ fb.USER.photo.url }}"
+                             class="rounded-circle border border-5 border-white shadow-sm"
+                             alt="{{ fb.USER.name }} Photo"
+                             style="width: 100px; height: 100px; object-fit: cover;">
+                    </div>
+
+                    <h5 class="card-title fw-bold mb-1 text-dark">
+                        {{ fb.USER.name }}
+                    </h5>
+
+                    <p class="text-muted small mb-3">
+                        <i class="bi bi-envelope-fill"></i> {{ fb.USER.email }}
+                    </p>
+
+                    {% if fb.feedback %}
+                    <blockquote class="text-center w-100 mt-2 p-3 bg-light rounded-3 border-start border-4 border-info fst-italic flex-grow-1">
+                        <p class="card-text text-dark mb-0">
+                            "{{ fb.feedback }}"
+                        </p>
+                    </blockquote>
+                    {% else %}
+                    <div class="alert alert-warning py-1 mt-2 flex-grow-1" role="alert">
+                        No written feedback provided.
+                    </div>
+                    {% endif %}
+
+                </div>
+                <div class="card-footer bg-white border-0 text-end text-muted small pt-0">
+                    Received:
+                    {% if fb.date %}{{ fb.date }}{% else %}N/A{% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center" role="alert">
+                <i class="bi bi-info-circle-fill"></i> **No feedback available.** Users haven't submitted any responses yet.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+    /* Ensure the body takes full height for better layout */
+    body {
+        min-height: 100vh;
+    }
+    /* Style for the feedback card to look like a testimonial box */
+    .feedback-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Hover effect to make it interactive */
+    .feedback-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+    }
+    /* Avatar container to keep the image centered and defined */
+    .avatar-container {
+        position: relative;
+        margin-top: -20px; /* Optional: Pulls the avatar up slightly */
+    }
+</style>
+
+</body>
+</html>
+{% endblock %}
+
+
+{#def user_feedback(request):#}
+{#    lid = request.POST["lid"]#}
+{#    user = user_Tbl.objects.get(LOGIN=lid)#}
+{#    fk = request.POST["feedback"]#}
+{##}
+{#    old_fb = feedback.objects.filter(USER=user).first()#}
+{##}
+{#    if old_fb:#}
+{#        old_fb.feedback = fk#}
+{#        old_fb.date = datetime.datetime.now().today()#}
+{#        old_fb.save()#}
+{#    else:#}
+{#        obj = feedback()#}
+{#        obj.feedback = fk#}
+{#        obj.date = datetime.datetime.now().today()#}
+{#        obj.USER = user#}
+{#        obj.save()#}
+{#    return JsonResponse({'status': 'ok'})#}
